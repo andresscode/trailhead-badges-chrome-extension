@@ -1,0 +1,15 @@
+{
+  "name": "Trailhead Badges",
+  "short_name": "Counter",
+  "version": "0.1",
+  "description": "Count the number of hours you have completed at Trailhead.com",
+  "permissions": ["activeTab", "declarativeContent"],
+  "background": {
+    "scripts": ["./js/background.js"],
+    "persistent": false
+  },
+  "page_action": {
+    "default_popup": "./html/popup.html"
+  },
+  "manifest_version": 2
+}
