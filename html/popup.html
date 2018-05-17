@@ -3,6 +3,21 @@
   <head>
   </head>
   <body>
-    <h3>Hello World!</h3>
+
+    <!-- Action to be performed by the user -->
+    <div id="section-request">
+      <!-- Period to be calculated -->
+      <input id="rad-all" type="radio" name="period" value="all" checked/>
+      <label for="rad-all">All</label>
+      <input id="rad-period" type="radio" name="period" value="period"/>
+      <label for="rad-period">Period</label>
+      <!-- Period selection -->
+      <input id="date-from" type="date" disabled/>
+      <input id="date-to" type="date" disabled/>
+      <!-- Submit -->
+      <button id="btn-submit">Submit</button>
+    </div>
+
+    <script src="../js/popup.js"></script>
   </body>
 </html>
