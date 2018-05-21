@@ -1,7 +1,10 @@
-// Constants
+// user details form identifiers
 var FIRST_NAME = 'user_first_name';
 var LAST_NAME = 'user_last_name';
 var COMPANY = 'user_company';
+
+// Message types
+var MSG_TOTALS =  1;
 
 /**
  * =====================================================================
@@ -150,7 +153,11 @@ function getTotals(badges) {
       points: 0
     }
   };
-  executeCallout(badges, totals);
+  if (!isPeriod) {
+    executeCallout(badges, totals);
+  } else {
+    executeCallout(filteredBadgesByPeriod(badges), totals);
+  }
 }
 
 // Recursive function to add the totals and send the message to the popup.js
@@ -188,5 +195,23 @@ function executeCallout(badges, totals, index = 0) {
     xhr.send(null);
   } else {
     console.log(totals);
+    chrome.runtime.sendMessage({
+      type: MSG_TOTALS,
+      payload: totals
+    });
   }
+}
+
+// Filters a list of badges depending of a period of time
+function filteredBadgesByPeriod(badges) {
+  var result = [];
+
+  badges.forEach(function(b) {
+    var badgeDate = Date.parse(b.earned);
+    if (badgeDate >= fromDate && badgeDate <= toDate) {
+      result.push(b);
+    }
+  });
+
+  return result;
 }
