@@ -1,10 +1,17 @@
 // Constants
-var MOUSEOVER_EVENT = 'mouseover';
-var MOUSEOUT_EVENT = 'mouseout';
+var FIRST_NAME = 'user_first_name';
+var LAST_NAME = 'user_last_name';
+var COMPANY = 'user_company';
 
-// Getting the number of badges in the header to compare with 
-// the count to be sure that all the badges were counted properly
-var totalBadgesFromDOM = document.querySelector('div[data-test-badges-count]').innerHTML;
+// Getting user details. Badges will be added after, when the all of them
+// have been shown clicking the expander button
+var user = {
+  trailheadId: getTrailheadId(),
+  firstName: getUserDetails(FIRST_NAME),
+  lastName: getUserDetails(LAST_NAME),
+  company: getUserDetails(COMPANY),
+  badges: []
+};
 
 // Getting the expander button referene (Show All/Show Less) to know
 // if all the badges are shown to get their names
@@ -14,23 +21,28 @@ var btnShowAll = document.querySelector('a[tabindex="0"]');
 // all badges visible
 checkButtonExpanderStatus();
 
-// Getting the list of the badge's names to retrieve
-// the hours data from the server
-var myBadges = getBadgesList();
+// Getting the badges earned that have points to count and hours
+user.badges = getBadgesList();
 
-console.log(myBadges.length + ' badges');
-var totalPoints = 0;
-myBadges.forEach(function(b) {
-  totalPoints += Number(b.points);
-  console.log(b);
-});
-console.log(totalPoints + ' points');
+console.log(user);
 
 /**
  * =====================================================================
  * Helper functions
  * =====================================================================
  */
+
+// Returns the user Id that is at the end of the URL
+function getTrailheadId() {
+  var url = location.href;
+  return url.substr(url.lastIndexOf('/') + 1);
+}
+
+function getUserDetails(key) {
+  var form = document.querySelector('div[data-test-about-me]');
+  var div = form.querySelector('div label[for="' + key + '"]').parentNode;
+  return div.querySelector('span').textContent;
+}
 
 // Checks if the button to expand the badges list is opened or closed.
 // This button uses Show All as innerHTML text when is colapsed and 
@@ -60,7 +72,7 @@ function getBadgesList() {
     .forEach(function(e) {
       // Simulating a mouseover event over each badge element from the DOM
       // to reveal the values for the date and points of every badge
-      var mouseover = simulateMouseEvent(MOUSEOVER_EVENT, e);
+      var mouseover = simulateMouseEvent('mouseover', e);
       if (mouseover) {
         // Reference of the button that displays the date and points info
         var btn = document.querySelector('button[class="slds-button slds-float_right th-button--dropdown"]');
@@ -83,7 +95,7 @@ function getBadgesList() {
           result.push(data);
         }
         // Mouseout from the actual badge to hide the expander button from the current target
-        simulateMouseEvent(MOUSEOUT_EVENT, e);
+        simulateMouseEvent('mouseout', e);
       } else {
         alert('Something went wrong');
       }
