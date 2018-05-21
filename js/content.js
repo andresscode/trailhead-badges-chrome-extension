@@ -3,6 +3,12 @@ var FIRST_NAME = 'user_first_name';
 var LAST_NAME = 'user_last_name';
 var COMPANY = 'user_company';
 
+/**
+ * =====================================================================
+ * PROGRAM SEQUENCE
+ * =====================================================================
+ */
+
 // Getting user details. Badges will be added after, when the all of them
 // have been shown clicking the expander button
 var user = {
@@ -26,9 +32,13 @@ user.badges = getBadgesList();
 
 console.log(user);
 
+// Send the totals of hours and points of Modules, Projects and Superbadges
+// to the popup.js to be shown to the user
+getTotals(user.badges);
+
 /**
  * =====================================================================
- * Helper functions
+ * HELPER FUNCTIONS FOR GETTING USER DATA
  * =====================================================================
  */
 
@@ -88,7 +98,7 @@ function getBadgesList() {
             if (index === 0) {
               data.earned = e.textContent;
             } else {
-              data.points = e.textContent;
+              data.points = Number(e.textContent);
             }
             index++;
           });
@@ -112,4 +122,71 @@ function simulateMouseEvent(type, target) {
     cancelable: true
   });
   return target.dispatchEvent(event);
+}
+
+/**
+ * =====================================================================
+ * HELPER FUNCTIONS FOR CALCULATING TOTALS
+ * =====================================================================
+ */
+
+// By pass function to prepare the object that 
+// will hold the data for the totals
+function getTotals(badges) {
+  var totals = {
+    modules: {
+      hours: 0,
+      points: 0
+    },
+    projects: {
+      hours: 0,
+      points: 0
+    },
+    superbadges: {
+      hours: {
+        min: 0,
+        max: 0
+      },
+      points: 0
+    }
+  };
+  executeCallout(badges, totals);
+}
+
+// Recursive function to add the totals and send the message to the popup.js
+function executeCallout(badges, totals, index = 0) {
+  if (index < badges.length) {
+    var href = 'https://trailhead.salesforce.com' + badges[index].href;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://trailheadbadges-api.herokuapp.com/badges/search/findByHref?href=' + href, true);
+    xhr.onload = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          var badge = JSON.parse(xhr.responseText);
+          if (badge.type === 'Module') {
+            totals.modules.hours += badge.hours;
+            totals.modules.points += badges[index].points;
+          }
+          if (badge.type === 'Project') {
+            totals.projects.hours += badge.hours;
+            totals.projects.points += badges[index].points;
+          }
+          if (badge.type === 'Superbadge') {
+            totals.superbadges.hours.min += badge.hours.min;
+            totals.superbadges.hours.max += badge.hours.max;
+            totals.superbadges.points += badges[index].points;
+          }
+          executeCallout(badges, totals, index + 1);
+        } else {
+          console.error(xhr.statusText);
+        }
+      }
+    };
+    xhr.onerror = function() {
+      console.error(xhr.statusText);
+    };
+    xhr.send(null);
+  } else {
+    console.log(totals);
+  }
 }
