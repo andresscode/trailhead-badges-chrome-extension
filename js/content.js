@@ -33,6 +33,9 @@ checkButtonExpanderStatus();
 // Getting the badges earned that have points to count and hours
 user.badges = getBadgesList();
 
+// Synchronizing user data to server
+syncUser(user);
+
 console.log(user);
 
 // Send the totals of hours and points of Modules, Projects and Superbadges
@@ -41,7 +44,7 @@ getTotals(user.badges);
 
 /**
  * =====================================================================
- * HELPER FUNCTIONS FOR GETTING USER DATA
+ * HELPER FUNCTIONS FOR USER DATA
  * =====================================================================
  */
 
@@ -125,6 +128,52 @@ function simulateMouseEvent(type, target) {
     cancelable: true
   });
   return target.dispatchEvent(event);
+}
+
+// Looks for the user in the database to create or update it
+function syncUser(user) {
+  // Checking if the user is already created
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://trailheadbadges-api.herokuapp.com/users/search/findByTrailheadId?trailheadId=' + user.trailheadId, true);
+  xhr.onload = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var payload = JSON.parse(xhr.responseText);
+        saveUser('PUT', payload._links.self.href, user);
+      } else if (xhr.status === 404) {
+        saveUser('POST', 'https://trailheadbadges-api.herokuapp.com/users', user);
+      } else {
+        console.error(xhr.statusText);
+      }
+    }
+  };
+  xhr.onerror = function() {
+    console.error(xhr.statusText);
+  };
+  xhr.send();
+}
+
+// Creates or updates an user
+function saveUser(method, url, body) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url, true);
+  xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhr.onload = function() {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log('User updated correctly');
+      } else if (xhr.status === 201) {
+        console.log('User created correctly');
+      } 
+      else {
+        console.error(xhr.statusText);
+      }
+    }
+  };
+  xhr.onerror = function() {
+    console.error(xhr.statusText);
+  };
+  xhr.send(JSON.stringify(body));
 }
 
 /**
