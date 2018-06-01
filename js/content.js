@@ -3,9 +3,6 @@ var FIRST_NAME = 'user_first_name';
 var LAST_NAME = 'user_last_name';
 var COMPANY = 'user_company';
 
-// Message types
-var MSG_TOTALS =  1;
-
 /**
  * =====================================================================
  * PROGRAM SEQUENCE
@@ -36,7 +33,7 @@ user.badges = getBadgesList();
 // Synchronizing user data to server
 syncUser(user);
 
-console.log(user);
+// console.log(user);
 
 // Send the totals of hours and points of Modules, Projects and Superbadges
 // to the popup.js to be shown to the user
@@ -161,9 +158,9 @@ function saveUser(method, url, body) {
   xhr.onload = function() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log('User updated correctly');
+        // console.log('User updated correctly');
       } else if (xhr.status === 201) {
-        console.log('User created correctly');
+        // console.log('User created correctly');
       } 
       else {
         console.error(xhr.statusText);
@@ -243,10 +240,9 @@ function executeCallout(badges, totals, index = 0) {
     };
     xhr.send(null);
   } else {
-    console.log(totals);
+    // console.log(totals);
     chrome.runtime.sendMessage({
-      type: MSG_TOTALS,
-      payload: totals
+      totals: totals
     });
   }
 }

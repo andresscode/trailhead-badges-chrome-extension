@@ -1,24 +1,83 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link rel="stylesheet" type="text/css" href="../css/popup.css">
   </head>
   <body>
 
-    <!-- Action to be performed by the user -->
-    <div id="section-request">
-      <!-- Period to be calculated -->
-      <input id="rad-all" type="radio" name="period" value="all" checked/>
-      <label for="rad-all">All</label>
-      <input id="rad-period" type="radio" name="period" value="period"/>
-      <label for="rad-period">Period</label>
-      <!-- Period selection -->
-      <input id="date-from" type="date" disabled/>
-      <input id="date-to" type="date" disabled/>
-      <!-- Submit -->
-      <button id="btn-submit">Submit</button>
-    </div>
+    <div id="wrapper">
 
-    <div id="test"></div>
+      <!-- Action to be performed by tde user -->
+      <div id="section-request">
+        <!-- Period to be calculated -->
+        <input id="rad-all" type="radio" name="period" value="all" checked/>
+        <label for="rad-all">All</label>
+        <input id="rad-period" type="radio" name="period" value="period"/>
+        <label for="rad-period">Period</label><br/>
+        <!-- Period selection -->
+        <label for="date-from">From</label>
+        <input id="date-from" class="margin-top" type="date" disabled/><br/>
+        <label for="date-to">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;To</label>
+        <input id="date-to" class="margin-top" type="date" disabled/>
+      </div>
+  
+      <!-- Display totals retrieved -->
+      <div id="section-totals">
+        <table>
+          <!-- Modules and Projects -->
+          <tr>
+            <th class="header">Modules</th>
+            <th></th>
+            <th class="header">Projects</th>
+          </tr>
+          <tr>
+            <td><span id="hours-modules" class="number">- -</span></td>
+            <td>Hours</td>
+            <td><span id="hours-projects" class="number">- -</span></td>
+          </tr>
+          <tr>
+            <td><span id="points-modules" class="number">- -</span></td>
+            <td>Points</td>
+            <td><span id="points-projects" class="number">- -</span></td>
+          </tr>
+          <!-- Superbadges -->
+          <tr>
+            <th colspan="3" class="header table-header">Superbadges</th>
+          </tr>
+          <tr>
+            <td>Min</td>
+            <td>Max</td>
+            <td>Points</td>
+          </tr>
+          <tr>
+            <td><span id="hours-min-superbadges" class="number">- -</span></td>
+            <td><span id="hours-max-superbadges" class="number">- -</span></td>
+            <td><span id="points-superbadges" class="number">- -</span></td>
+          </tr>
+          <!-- Totals -->
+          <tr class="table-header">
+            <th colspan="3" class="header table-header">Totals</th>
+          </tr>
+          <tr>
+            <td>Min</td>
+            <td>Max</td>
+            <td>Points</td>
+          </tr>
+          <tr>
+            <td><span id="hours-min-total" class="number">- -</span></td>
+            <td><span id="hours-max-total" class="number">- -</span></td>
+            <td><span id="points-total" class="number">- -</span></td>
+          </tr>
+        </table>
+      </div>
+  
+      <!-- Submit -->
+      <button id="btn-submit">
+        <span id="btn-txt">Submit</span>
+        <img src="../svg/three-dots.svg" id="btn-spinner" hidden/>
+      </button>
+
+    </div>
     <script src="../js/popup.js"></script>
   </body>
 </html>

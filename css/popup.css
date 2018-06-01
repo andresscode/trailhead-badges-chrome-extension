@@ -1,0 +1,94 @@
+@font-face {
+  font-family: "SalesforceSans";
+  src: url("https://trailhead.salesforce.com/assets/SalesforceSans-Regular-61b1f95fd4b77f7674f18aca5e867efb6e1ca58026ae61cc43f0f7b86d05743d.woff") format('woff');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "SalesforceSans";
+  src: url("https://trailhead.salesforce.com/assets/SalesforceSans-Bold-772dcaf2940255be4ba35180a1b48717399fc025aa9c3997062d4feabb57da23.woff") format('woff');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "SalesforceSans";
+  src: url("https://trailhead.salesforce.com/assets/SalesforceSans-Light-5aa96c2711a6ba7ebd27c56d9e07014ed2126d8b2f0491e891a6260b39423fb5.woff") format('woff');
+  font-weight: lighter;
+}
+
+body {
+  min-width: 200px;
+  font-family: 'SalesforceSans', sans-serif;
+  font-size: 0.85em;
+  font-weight: lighter;
+  color: #999;
+  align-content: center;
+  text-align: center;
+}
+
+#wrapper {
+  margin: 0 auto;
+}
+
+table {
+  margin: 16px auto;
+}
+
+table > * {
+  text-align: center;
+}
+
+.table-header {
+  padding-top: 16px;
+}
+
+.number {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #38805B;
+}
+
+.header {
+  font-size: 1.1em;
+  color: #555;
+}
+
+button {
+  width: 80px;
+  outline: none;
+  font-family: inherit;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  background: orangered;
+  border-bottom: 3px solid rgb(167, 44, 0);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:active {
+  margin-top: 4px;
+  border: none;
+}
+
+input[type=date] { 
+  font-family: inherit;
+  border:1px solid #ccc;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  color: #999;
+  text-align: center;
+  align-content: center;
+}
+
+input[type=date]:disabled {
+  opacity: 0.5;
+}
+
+.margin-top {
+  margin-top: 8px;
+}
