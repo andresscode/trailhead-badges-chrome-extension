@@ -48,7 +48,13 @@ getTotals(user.badges);
 // Returns the user Id that is at the end of the URL
 function getTrailheadId() {
   var url = location.href;
-  return url.substr(url.lastIndexOf('/') + 1);
+  var id = url.substr(url.lastIndexOf('/') + 1);
+  // Checking if the URL contains a # at the end to remove it
+  if (id.includes('#')) {
+    return id.replace('#', '');
+  } else {
+    return id;
+  }
 }
 
 function getUserDetails(key) {
