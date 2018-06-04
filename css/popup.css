@@ -53,6 +53,8 @@ table > * {
 }
 
 button {
+  appearance: none;
+  -webkit-appearance: none;
   width: 80px;
   outline: none;
   font-family: inherit;
