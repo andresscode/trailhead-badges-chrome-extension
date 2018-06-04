@@ -55,6 +55,7 @@ table > * {
 button {
   appearance: none;
   -webkit-appearance: none;
+  border: none;
   width: 80px;
   outline: none;
   font-family: inherit;
@@ -72,7 +73,7 @@ button:hover {
 }
 
 button:active {
-  margin-top: 4px;
+  margin-top: 3px;
   border: none;
 }
 
