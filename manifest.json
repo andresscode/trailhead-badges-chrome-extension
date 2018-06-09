@@ -1,8 +1,8 @@
 {
-  "name": "Trailhead Badges",
-  "short_name": "Badges",
-  "version": "0.2.2",
-  "description": "Count the number of hours and points you have completed at Trailhead.com",
+  "name": "Trailhead Hours",
+  "short_name": "Hours Counter",
+  "version": "0.3",
+  "description": "Count the number of hours you have completed at Trailhead.com",
   "permissions": ["activeTab", "declarativeContent"],
   "background": {
     "scripts": ["./js/background.js"],
