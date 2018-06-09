@@ -1,7 +1,18 @@
-// user details form identifiers
-var FIRST_NAME = 'user_first_name';
-var LAST_NAME = 'user_last_name';
-var COMPANY = 'user_company';
+// user details form identifiers and labels
+var userDetails = {
+  firstName: {
+    key: 'user_first_name',
+    label: 'First Name'
+  },
+  lastName: {
+    key: 'user_last_name',
+    label: 'Last Name'
+  },
+  company: {
+    key: 'user_company',
+    label: 'Company'
+  }
+};
 
 /**
  * =====================================================================
@@ -13,9 +24,9 @@ var COMPANY = 'user_company';
 // have been shown clicking the expander button
 var user = {
   trailheadId: getTrailheadId(),
-  firstName: getUserDetails(FIRST_NAME),
-  lastName: getUserDetails(LAST_NAME),
-  company: getUserDetails(COMPANY),
+  firstName: getUserDetails(userDetails.firstName),
+  lastName: getUserDetails(userDetails.lastName),
+  company: getUserDetails(userDetails.company),
   badges: []
 };
 
@@ -57,10 +68,14 @@ function getTrailheadId() {
   }
 }
 
-function getUserDetails(key) {
+function getUserDetails(value) {
   var form = document.querySelector('div[data-test-about-me]');
-  var div = form.querySelector('div label[for="' + key + '"]').parentNode;
-  return div.querySelector('span').textContent;
+  var div = form.querySelector('div label[for="' + value.key + '"]');
+  if (div !== null) {
+    return div.parentNode.querySelector('span').textContent;
+  } else {
+    alert('Please enter your ' + value.label + ' in the About Me section');
+  }
 }
 
 // Checks if the button to expand the badges list is opened or closed.
@@ -116,7 +131,7 @@ function getBadgesList() {
         // Mouseout from the actual badge to hide the expander button from the current target
         simulateMouseEvent('mouseout', e);
       } else {
-        alert('Something went wrong');
+        console.log('Error simulating mouse event');
       }
     });
 

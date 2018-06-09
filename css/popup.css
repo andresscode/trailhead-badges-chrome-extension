@@ -72,9 +72,18 @@ button:hover {
   cursor: pointer;
 }
 
+button:disabled:hover {
+  cursor: default;
+}
+
 button:active {
   margin-top: 3px;
   border: none;
+}
+
+button:disabled:active {
+  margin-top: 0;
+  border-bottom: 3px solid rgb(167, 44, 0);
 }
 
 input[type=date] { 

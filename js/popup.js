@@ -107,9 +107,11 @@ radioButtonsPeriod.forEach(function(e) {
 // Controls the button text and spinner
 function showHideBtnSpinner() {
   if (btnSpinner.hidden === true) {
+    btnSubmit.disabled = true;
     btnTxt.hidden = true;
     btnSpinner.hidden = false;
   } else {
+    btnSubmit.disabled = false;
     btnTxt.hidden = false;
     btnSpinner.hidden = true;
   }
