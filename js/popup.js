@@ -11,16 +11,7 @@ var btnTxt = document.getElementById('btn-txt');
 var btnSpinner = document.getElementById('btn-spinner');
 
 // Totals section
-var hoursModules = document.getElementById('hours-modules');
-var hoursProjects = document.getElementById('hours-projects');
-var pointsModules = document.getElementById('points-modules');
-var pointsProjects = document.getElementById('points-projects');
-var hoursMinSuperbadges = document.getElementById('hours-min-superbadges');
-var hoursMaxSuperbadges = document.getElementById('hours-max-superbadges');
-var pointsSuperbadges = document.getElementById('points-superbadges');
-var hoursMinTotal = document.getElementById('hours-min-total');
 var hoursMaxTotal = document.getElementById('hours-max-total');
-var pointsTotal = document.getElementById('points-total');
 
 // =======================================================================
 // VARIABLES
@@ -65,25 +56,10 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
 
   var hrsModules = message.totals.modules.hours;
   var hrsProjects = message.totals.projects.hours;
-  var ptsModules = message.totals.modules.points;
-  var ptsProjects = message.totals.projects.points;
-  var hrsMinSuper = message.totals.superbadges.hours.min;
   var hrsMaxSuper = message.totals.superbadges.hours.max;
-  var ptsSuper = message.totals.superbadges.points;
-  var hrsMinTotal = hrsModules + hrsProjects + hrsMinSuper;
   var hrsMaxTotal = hrsModules + hrsProjects + hrsMaxSuper;
-  var ptsTotal = ptsModules + ptsProjects + ptsSuper;
 
-  hoursModules.innerHTML = hrsModules.toFixed(2);
-  hoursProjects.innerHTML = hrsProjects.toFixed(2);
-  pointsModules.innerHTML = ptsModules.toLocaleString('en');
-  pointsProjects.innerHTML = ptsProjects.toLocaleString('en');
-  hoursMinSuperbadges.innerHTML = hrsMinSuper.toFixed(2);
-  hoursMaxSuperbadges.innerHTML = hrsMaxSuper.toFixed(2);
-  pointsSuperbadges.innerHTML = ptsSuper.toLocaleString('en');
-  hoursMinTotal.innerHTML = hrsMinTotal.toFixed(2);
   hoursMaxTotal.innerHTML = hrsMaxTotal.toFixed(2);
-  pointsTotal.innerHTML = ptsTotal.toLocaleString('en');
 });
 
 // =======================================================================
