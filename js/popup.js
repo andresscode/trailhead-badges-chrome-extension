@@ -35,7 +35,6 @@ var periodSelected = getCheckedRadioButtonValue(radioButtonsPeriod);
 // the values for the dates if the user wants to calculate the hours based
 // on a span of time
 btnSubmit.onclick = function() {
-  showHideBtnSpinner();
   periodSelected = getCheckedRadioButtonValue(radioButtonsPeriod);
   if (periodSelected === 'period') {
     if (fromDate.value == '' || fromDate.value == null || toDate.value == '' || toDate == null) {
@@ -45,12 +44,14 @@ btnSubmit.onclick = function() {
       alert('Invalid period of time');
     }
     else {
+      showHideBtnSpinner();
       var str = 'var isPeriod = true; var fromDate = ' + Date.parse(fromDate.value) + '; var toDate = ' + Date.parse(toDate.value) + ';';
       chrome.tabs.executeScript({code: str}, function() {
         chrome.tabs.executeScript({file: "./js/content.js"});
       });
     }
   } else {
+    showHideBtnSpinner();
     var str = 'var isPeriod = false;';
     chrome.tabs.executeScript({code: str}, function() {
       chrome.tabs.executeScript({file: "./js/content.js"});
